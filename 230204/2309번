@@ -1,0 +1,24 @@
+tall_size = []
+for test_case in range(9): # 총 9명이니까
+    tall_size.append(int(input())) # 각각 키 정보 입력받고
+
+over = sum(tall_size)-100 # 리스트 총 합 구한 뒤, 초과 값 구하자
+flag = 0
+# 어차피 총 연산 72번 밖에 되지 않는다. 충분히 가능
+for i in range(len(tall_size)):
+    if flag == 1:
+        break
+    for j in range(i+1,len(tall_size)):
+        if tall_size[i]+tall_size[j] == over: # 만약 오버 값과 동일하면
+            tall_size[i],tall_size[j] = -10000,-10000 # 그냥 애매 하게하지말고 크게크게 처리해버림
+            flag = 1 # 이중 포문 같은 경우는 플래그 세워서 빠져나가게 해야해
+            
+tall_size.sort() # 오름차순해서 출력해야하니까!
+for i in range(2,len(tall_size)):
+    print(tall_size[i])
+    
+    
+ # 직전에 풀었던 백설공주와 일곱 난쟁이와 동일하지만 조금 조건이 다르다
+ # 여기서 얻은 포인트는 flag다. 이중 포문을 탈출할 때 이렇게 쓰는 스킬을 어쩌다 알게된적 있는데
+ # 이런 유형의 문제에선 꽤나 유용하니까 기억하자
+ # 스킬은 많이 알아둘 수록 좋고, 항상 기억해놨다가 적재적소에 쓰자. 실수 없이, 효율적으로 

@@ -1,0 +1,24 @@
+# 브론즈1 3040번 백설공주와 일곱난쟁
+
+arr,check = [],[]
+for i in range(9):
+    arr.append(int(input()))
+
+over = sum(arr)-100
+for i in range(len(arr)):
+    for j in range(i+1,len(arr)):
+        if arr[i]+arr[j] == over:
+            arr[i],arr[j] = -100000,-100000  # 고쳐야할 잔실수 발견
+            
+            
+for i in range(len(arr)):
+    if arr[i]==-100000:
+        pass
+    else:
+        print(arr[i])
+        
+ # 이중 포문에서 내부 루핑에 break를 걸면 내부만 빠져나가는거지, 외부는 계속 돌아간다는 점 꼭 상기할 것
+ # arr[i],arr[j]을 처음에 0,0으로 처리하였는데 이렇게 숫자 조정해서 처리해놓는 것 주의할 것.
+ # 이런 문제처럼 합계를 구할 때 쉽게 0,0으로 처리하다보면 결과가 다를 수 있으며, 반례 찾는게 약한 내겐 미궁에 빠질 위험이 큼
+ # 꼼꼼히 기록하고 반드시 두번의 실수는 없도록하자
+ # 그리고 이런 쉬운 문제라 해도 풀고 나면 남이 푼 코드 꼭 리뷰해서 스킬 적용해볼만한건 꼭 기록하자

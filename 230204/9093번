@@ -1,0 +1,11 @@
+T = int(input())  # 테케 받고
+llst = []   # 리스트 선언
+for i in range(T): # 테케 루핑하면서
+    s = input()  # 문자열 입력받고
+    lst = s.split()  # 공백 기준으로 나눠서 lst라는 리스트에 담음
+    for j in range(len(lst)):  # lst길이만큼 루핑하면서
+        llst.append(lst[j][::-1])  # 이게 포인트였다. lst[0]에 해당하는 문자열이 'We'라고 한다면 [0][::-1]은 'eW'가 된다. 잊지말자.
+    print(*llst) # 언패킹
+    llst = [] # 초기화
+    
+# 아까 까먹지 말자던 초기화를 잘 적용했다. 앞으로도 까먹지말고 잘 적용해보자

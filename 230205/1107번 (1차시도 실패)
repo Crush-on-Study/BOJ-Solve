@@ -1,0 +1,38 @@
+# 아이디어 : 조합을 이용해서 이동하려는 채널과 가장 가까운 애를 찾자
+
+from itertools import product # 중복순열 라이브러리
+import sys
+input = sys.stdin.readline
+
+Channel = input().rstrip()  # 가고자 하는 채널 입력
+broken = int(input().rstrip()) # 고장난 버튼 몇개?
+rimocon = [i for i in range(10)] # 리모컨 0~9까지 번호 일단 저장해두고
+if broken != 0: # 부숴진게 하나 이상이라면
+    broken_lst = list(map(int,input().rstrip().split()))  # 고장난 버튼들 담아두고
+    broken_rimocon = list(set(rimocon)-set(broken_lst))  # 정상 버튼들만 새로 담기 위해 set을 사용함
+    lst = list(product(broken_rimocon, repeat=len(Channel))) # 중복순열 짜놓고 lst에 일단 다 담음
+
+    arr = [] # 중복순열 목록 다 담을거임 여기에. (lst랑 그럼 뭔 차이지?  여기서 하나 잘못된 버릇 찾았다)
+
+    min_check = 500000  # 미니멈 값 갱신을 위함
+
+    for i in range(len(lst)): # 중복순열 리스트 크기만큼 루핑하면서
+        arr.append("".join(map(str,lst[i])))  # arr에다가 담고
+
+    for i in range(len(arr)):  # arr의 크기만큼 루핑하면서
+        result = abs(int(arr[i])-int(Channel)) # 가고자 하는 채널과 가장 작은 차이를 내는 애를
+        min_check = min(min_check,result) # 계속해서 갱신함
+
+    if Channel == '100':  # 근데 채널이 100이라면
+        print(0) # 0을 출력하고
+
+    else: # 그렇지 않다면
+        print(min_check+len(Channel))  # 최소 버튼 횟수 출력
+        
+else:  # 만약 부숴진게 없다면
+    print(len(Channel)) # 그냥 채널 이동을 위해 누른 횟수만큼만 출력
+    
+    
+ # 이번 코드에서 잘못된 점
+ # 쓸데 없이 불필요한 리스트 선언들이 많음. 최적화가 필요함
+ # 그리고 중복순열 / 조합 / 순열  이런거 라이브러리 지원안되니까 반드시 직접 구현할 수준 되야할 듯

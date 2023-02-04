@@ -1,0 +1,57 @@
+# 문제 해석 : 격자 최대 크기 50이다
+# 50*50으로 탐색간다해도 총 2500이다. 격자 하나 당 4방향 탐색이면 최대 625만 연산이다. 연산 시간 절대 안모자람
+# 사탕은 크게 4가지가 있음
+# 인접한 지역과 스왑한 다음, 그 행 혹은 그 열의 동일한 사탕 개수를 세면 된다
+
+N = int(input()) # 사탕 격자 사이즈
+graph = [list(map(str,input())) for _ in range(N)]  # 그래프 정보 받자
+
+def check(graph):
+    save_point = 1 # 1로 한 이유는 일단 사탕은 최소 한개 먹는거부터 시작하니까
+    length = len(graph) # 내부 리스트 순회를 위해
+    
+    for i in range(length):
+        cnt = 1
+        for j in range(1,length): # 행 ㄱ
+            if graph[i][j] == graph[i][j-1]:
+                cnt+=1 # 카운팅해주자
+            else: # if - else - if 이게 가능하구나. 하나 알았다. 꼭 else를 마지막에 쓰는게 아니구나
+                cnt = 1 # 연속한게 아니라면 어차피 의미없으니까
+            if save_point < cnt:
+                save_point = cnt # 값 갱신
+        cnt = 1
+        
+        for j in range(1,length):
+            if graph[j][i] == graph[j-1][i]: # 열 ㄱ
+                cnt+=1
+            else:
+                cnt=1
+            if save_point < cnt:
+                save_point = cnt
+        cnt = 1
+            
+    return save_point
+
+real_result = 0
+
+for col in range(len(graph)):
+    for row in range(len(graph)): # 2차원 탐색하는데
+        if row+1<N: # 범위를 벗어나면 안된다. row < N로 하면 인덱스에러 난다.
+            graph[col][row],graph[col][row+1] = graph[col][row+1],graph[col][row] # 스왑해줘
+            temp = check(graph) # 이제 변환시킨 행렬을 따로 함수 호출해서  그 안에서 카운팅하도록 하자
+            if real_result < temp:
+                real_result = temp
+            graph[col][row+1],graph[col][row] = graph[col][row],graph[col][row+1] # 다시 변환해줘야지
+            
+        
+        if col+1<N:
+            graph[col][row],graph[col+1][row] = graph[col+1][row],graph[col][row]
+            temp = check(graph)
+            if real_result < temp:
+                real_result = temp
+            graph[col+1][row],graph[col][row] = graph[col][row],graph[col+1][row]
+            
+        
+print(real_result)
+
+# 깨달은 점 : 초기화 코드는 굉장히 중요하다. 이 문제는 반드시 여러번 정독하고 다시 풀어봐야한다

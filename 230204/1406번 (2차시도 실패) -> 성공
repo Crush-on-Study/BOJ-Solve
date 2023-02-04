@@ -26,7 +26,7 @@ for i in range(T):
         if len(right)==0:
             pass
         else:
-            a = right.pop(0)
+            a = right.pop(0)  # <- 이 부분 pop(0)이 아니라 pop() 해야한다...... 이거 고치니 
             left.append(a)
             
     if command[0] == 'B':

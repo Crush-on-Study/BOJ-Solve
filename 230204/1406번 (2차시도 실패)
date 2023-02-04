@@ -5,12 +5,13 @@
 
 import sys
 input = sys.stdin.readline
-left = list(map(str,input())) # 커서 기준으로 앞 뒤 분할
+left = list(map(str,input())) # 커서 기준으로 앞 뒤 분할  , 어차피 문자열로 받을거면 map(str 할 필요가 없다. list(input().strip())을 하자
+# strip은 readline썼으니까 일일이 공백 제거해줘야한다
 right = []
 T = int(input())
 
 for i in range(T):
-    command = list(map(str,input().split()))
+    command = list(input().strip().split())
     if command[0] == 'P':
         left.append(command[1])
     

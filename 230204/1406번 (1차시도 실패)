@@ -1,0 +1,46 @@
+# 1차 아이디어 : 실패 (시간초과의 우려도 보였음)
+# L은 커서 왼쪽으로 옮김
+# D는 커서 오른쪽으로 옮김
+# B는 커서 왼쪽 문자 삭제 + 오른쪽 문자들의 이동은 X
+# B가 무슨 말이냐면 o o o (공백) o o o o 이거란거지
+# o o o o o o o 이렇게 공백을 채운다는 뜻이 아닌듯
+# P는 문자를 왼쪽에 추가한다는 뜻
+# 시뮬레이션 마냥 하라는대로 다 구현하고자 했음
+
+s = input() # 문자열 입력받고
+arr = []
+for i in range(len(s)):
+    arr.append(s[i])
+cnt = -1
+T = int(input()) # 테케 개수 입력받고
+for test_case in range(T):
+    cursor = input()  # 문자 입력받고
+    if 'P' in cursor: # 만약 P 명령어 들어오면
+        lst = cursor.split() # 넣을 문자 뽑아내서
+        if cnt == -1: # 
+            arr.append(lst[1])
+            print(arr)
+        else:
+            arr.insert(cnt+1,lst[1])
+            print(arr)
+    if 'L' in cursor:
+        if len(arr)==abs(cnt):
+            cnt = -(len(arr)+1)
+            print(arr)
+        else:
+            cnt-=1
+            print(arr)
+    if 'D' in cursor:
+        if abs(cnt)==len(arr):
+            cnt = len(arr)
+            print(arr)
+        else:
+            cnt+=1
+    if 'B' in cursor:
+        if abs(cnt)==len(arr):
+            print(arr)
+            pass
+        else:
+            arr.remove(arr[cnt])
+            print(arr)
+print(arr)

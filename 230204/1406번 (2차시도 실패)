@@ -1,0 +1,39 @@
+# 시간초과 /출력초과 우려하여 커서 기준으로 배열을 반으로 쪼갬
+# 배열을 반으로 쪼개는게 핵심
+# 연결리스트 개념은 모르지만 아마 이런건가 싶음
+# 나머진 그냥 하라는대로 짰으나 1~2%대에서 틀렸습니다가 뜨는 중.  엣지 케이스를 찾고싶은데 아직 찾질 못함
+
+import sys
+input = sys.stdin.readline
+left = list(map(str,input())) # 커서 기준으로 앞 뒤 분할
+right = []
+T = int(input())
+
+for i in range(T):
+    command = list(map(str,input().split()))
+    if command[0] == 'P':
+        left.append(command[1])
+    
+    if command[0] == 'L':
+        if len(left)!=0:
+            a = left.pop()
+            right.append(a)
+        else:
+            pass
+    
+    if command[0] == 'D':
+        if len(right)==0:
+            pass
+        else:
+            a = right.pop(0)
+            left.append(a)
+            
+    if command[0] == 'B':
+        if len(left)==0:
+            pass
+        else:
+            left.pop()
+
+left = left+right[::-1]
+print("".join(map(str,left)))  # 이 부분 중요했음. 처음에 left+right를 바로 받으니 출력초과가 나버림
+# 찾아보니 배열 2개 합친거 print하면 용량 2배로 잡아먹어서 출력초과남  print하기 전에 미리 저렇게하자

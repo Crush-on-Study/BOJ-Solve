@@ -1,0 +1,32 @@
+# 빗물 아이디어
+# 가장 왼쪽에서부터 오른쪽으로 이동하면서 차를 구해볼까?
+# 그렇게 차들의 합을 구하다가 가장 왼쪽에 있던 벽의 크기와 같거나 더 큰 애를
+# 만나면 거기서 끝내고 이제 마주했던 벽이 새로운 기준이 되는 걸로!
+
+H,W = map(int,input().split()) # 높이와 너비
+block = list(map(int,input().split())) # 블록개수
+rain,flag = 0,0
+result = []
+
+def solution(now):
+    for now in range(len(block)):
+        if flag == 1: # 플래그에 따라 외부 for문도 탈출시킴
+            break
+        for next in range(now+1,len(block)):
+            if block[now]<=block[next]:
+                result.append(rain)
+                rain = 0 # 초기화
+                flag = 1
+                now = next # 다음 시작점 포인트 갱신하고 종료
+                break
+            else:
+                rain+=abs(block[now]-block[next])
+    return now
+            
+if solution(now)!=len(block):
+    solution(now) #.............. 관두자
+    
+print(sum(result))
+
+# 구현하다 뭔가 점점 산으로 가는거 같아서 멈추고 다시 고민하기로했다.
+# 처음에는 에디터 문제처럼 리스트 분할하는 식으로 풀어볼까 했는데 이거로 다시 한번 도전해봐야겠다
